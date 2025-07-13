@@ -32,10 +32,7 @@ mongoose.connect(dbLink)
 
 app.use(cookieParser());
 app.use(express.json());
-// app.use(cors({
-//     origin: "http://localhost:3000", 
-//     credentials: true               
-// }));
+
 app.use(cors({
   origin: true,          
   credentials: true
@@ -78,6 +75,8 @@ app.use("/api/video",VideoRouter);
 
 
 
-app.listen(3010,function(){
-    console.log('Server is running on port 3010');
-})
+const PORT = process.env.PORT || 3010;
+
+app.listen(PORT, function(){
+    console.log(`Server is running on port ${PORT}`);
+});
