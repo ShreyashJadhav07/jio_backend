@@ -20,26 +20,13 @@ mongoose.connect(dbLink)
         console.log("connected to db")
 }).catch(err => console.log(err))
 
-
-
-
-
-
-
-
-
-
-
 app.use(cookieParser());
 app.use(express.json());
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL || true,
-  credentials: true
+ origin: [process.env.FRONTEND_URL, 'http://localhost:3000'],
+ credentials: true
 }));
-
-
-
 
 const AuthRouter = require('./Routers/AuthRouter');
 const TvShowsRouter = require('./Routers/TvRouter');
@@ -48,12 +35,6 @@ const MoviesRouter = require('./Routers/MovieRouter');
 const UserRouter = require('./Routers/UserRouter');
 const VideoRouter = require('./Routers/VideoRouter');
 const PaymentRouter = require('./Routers/PaymentRouter');
-
-
-
-
-
-
 
 app.use("/api/auth",AuthRouter);
 
@@ -68,11 +49,6 @@ app.use("/api/user",UserRouter);
 app.use("/api/payment",PaymentRouter);
 
 app.use("/api/video",VideoRouter);
-
-
-
-
-
 
 
 const PORT = process.env.PORT || 3010;
