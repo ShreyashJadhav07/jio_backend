@@ -72,21 +72,21 @@ const getThumbnail = async (req, res) => {
         if (!id) {
             return res.status(400).json({ error: 'Video ID is required' });
         }
-        const thumbnailPath = path.join(__dirname, '..', 'thumbnails', `${id}.jpg`);       
+        
+        const thumbnailPath = path.join(__dirname, '..', 'thumbnails', `${id}.jpg`);
+        
         if (!fs.existsSync(thumbnailPath)) {
-           await generateThumbnailUtil(id)
+            return res.status(404).json({ error: 'Thumbnail not found' });
         }
 
-        
         res.sendFile(thumbnailPath);
 
-
     } catch (err) {
-         console.error('Thumbnail error:', err);
-       res.status(500).json({ error: 'Failed to serve thumbnail' });
-
+        console.error('Thumbnail error:', err);
+        res.status(500).json({ error: 'Failed to serve thumbnail' });
     }
 }
+
 
 
 
