@@ -11,39 +11,6 @@ const promisifiedJWTverify=promisify(jwt.verify);
 const {JWT_SECRET_KEY} =process.env;
 
 
-// async function signupHandler(req, res) {
-
-//     try{
-       
-//         const userObject=req.body;
-//         if(!userObject.email || !userObject.password ){
-//             return res.status(400).json({
-//                 message: "Bad Request: Email and Password are required",
-//                 status: "error"
-//             })
-//         }
-//         const user=await UserModel.findOne({email:userObject.email});
-//         if(user){
-//             return res.status(400).json({
-//                 message: "Bad Request: User already exists",
-//                 status: "error"
-//         })
-
-//     }
-//     const newUser=await UserModel.create(userObject);
-//     res.status(201).json({
-//         message: "User created successfully",
-//         user: newUser,
-//         status: "success"
-//     }); 
-// }
-//     catch(err) {
-//         console.error("Error in signupHandler:", err);
-//         res.status(500).json({
-//             message: "Internal Server Error"
-//         });
-// }
-// }
 async function signupHandler(req, res) {
     try{
         const userObject = req.body;
@@ -71,6 +38,7 @@ async function signupHandler(req, res) {
             maxAge: 1000 * 60 * 60 * 24,
             secure: true,
             httpOnly: true,
+            sameSite: 'none'
         });
 
         res.status(201).json({
@@ -111,6 +79,7 @@ async function loginHandler(req, res) {
             maxAge: 1000 * 60 * 60 * 24,
             secure:true,
             httpOnly: true,
+            sameSite: 'none'
         });
 
         res.status(200).json({
@@ -311,6 +280,7 @@ const logoutController = function (req, res) {
         maxAge:0,
         httpOnly: true,
         secure: true,
+        sameSite: 'none'  
     });
 
     res.status(200).json({
