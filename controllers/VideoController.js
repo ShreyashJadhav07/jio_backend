@@ -68,13 +68,13 @@ const getVideoStream = async (req, res) => {
 
 const getThumbnail = async (req, res) => {
     try {
-        const { videoId } = req.query;
-        if (!videoId) {
+        const { id } = req.query;
+        if (!id) {
             return res.status(400).json({ error: 'Video ID is required' });
         }
-        const thumbnailPath = path.join(__dirname, '..', 'thumbnails', `${videoId}.jpg`);       
+        const thumbnailPath = path.join(__dirname, '..', 'thumbnails', `${id}.jpg`);       
         if (!fs.existsSync(thumbnailPath)) {
-           await generateThumbnailUtil(videoId)
+           await generateThumbnailUtil(id)
         }
 
         
@@ -82,6 +82,8 @@ const getThumbnail = async (req, res) => {
 
 
     } catch (err) {
+         console.error('Thumbnail error:', err);
+       res.status(500).json({ error: 'Failed to serve thumbnail' });
 
     }
 }
