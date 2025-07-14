@@ -27,6 +27,10 @@ app.use(cors({
  origin: [process.env.FRONTEND_URL, 'http://localhost:3000'],
  credentials: true
 }));
+// app.use(cors({
+//  origin:true,
+//  credentials: true
+// }));
 
 const AuthRouter = require('./Routers/AuthRouter');
 const TvShowsRouter = require('./Routers/TvRouter');
